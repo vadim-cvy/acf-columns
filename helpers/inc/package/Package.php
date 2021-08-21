@@ -13,7 +13,7 @@ namespace Cvy_AC\helpers\inc\package;
  *
  * How to use:
  *
- * My_Awesome_Package extends \Cvy_AC\helpers\inc\Package
+ * My_Awesome_Package extends \Cvy_AC\helpers\inc\package\Package
  * {
  *      // Your code goes here
  * }
