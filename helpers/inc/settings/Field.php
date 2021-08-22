@@ -92,7 +92,9 @@ abstract class Field
 
         if ( is_array( $setting_value ) )
         {
-            return $setting_value[ $this->get_id() ];
+            return isset( $setting_value[ $this->get_id() ] ) ?
+                $setting_value[ $this->get_id() ] :
+                $this->get_default_value();
         }
         else
         {
