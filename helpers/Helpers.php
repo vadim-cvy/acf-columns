@@ -17,7 +17,7 @@ class Helpers extends \Cvy_AC\helpers\inc\package\Package
      */
     public function on_run() : void
     {
-
+        \Cvy_Ac\helpers\inc\Dashboard::get_instance();
     }
 
     /**
