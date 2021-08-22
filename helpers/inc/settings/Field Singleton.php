@@ -7,13 +7,15 @@ namespace Cvy_AC\helpers\inc\settings;
  *
  * A wrapper for add_settings_field().
  *
- * May have multiple instances.
+ * May have only 1 instance.
  */
 abstract class Field
 {
+    use Cvy_AC\helpers\inc\design_pattern\tSingleton;
+
     use tField;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->on_construct();
     }
