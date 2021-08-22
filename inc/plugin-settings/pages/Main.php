@@ -21,10 +21,10 @@ class Main extends \Cvy_AC\helpers\inc\settings\Page
     protected function generate_sections() : array
     {
         return [
-            'general' => new Section(
-                'general',
-                'General',
-                '',
+            'max_columns' => new Section(
+                'max_columns',
+                'Tables Max Columns Number',
+                'Columns view is simplified when table has more ACF columns than specified in the settings on current page.',
                 $this
             ),
         ];
