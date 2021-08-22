@@ -76,4 +76,21 @@ abstract class Plugin_Package extends Package
     {
         return dirname( $this->get_root_file() ) . '/';
     }
+
+    /**
+     * Adds dashboard error notice.
+     *
+     * @param string $error_message Notice message.
+     * @return void
+     */
+    public function add_dashboard_error( string $error_message ) : void
+    {
+        $error_message =
+            '<strong>' .
+                '"' . $this->get_name() . '" Plugin Error:' .
+            '</strong> ' .
+            $error_message;
+
+        parent::add_dashboard_error( $error_message );
+    }
 }

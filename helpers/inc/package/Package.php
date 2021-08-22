@@ -106,4 +106,15 @@ abstract class Package
     {
         return $this->get_root_dir() . '/templates/';
     }
+
+    /**
+     * Adds dashboard error notice.
+     *
+     * @param string $error_message Notice message.
+     * @return void
+     */
+    public function add_dashboard_error( string $error_message ) : void
+    {
+        \Cvy_AC\helpers\inc\Dashboard::get_instance()->add_error( $error_message );
+    }
 }
