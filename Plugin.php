@@ -10,6 +10,8 @@
 
 namespace Cvy_AC;
 
+use \Cvy_AC\helpers\inc\acf\ACF;
+
 /**
  * Init plugin autoloader.
  */
@@ -32,6 +34,52 @@ class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
     public function on_run() : void
     {
         \Cvy_AC\inc\plugin_settings\Plugin_Settings::get_instance();
+    }
+
+    /**
+     * Checks if the plugin is allowed to run.
+     *
+     * @return boolean True if package is allowed to run false otherwise.
+     */
+    protected function can_run() : bool
+    {
+        if (
+            ! parent::can_run() ||
+            ! $this->validate_acf_plugin_active()
+        )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if ACF plugin is installed and activated.
+     *
+     * @return boolean True if ACF is active,
+     */
+    protected function validate_acf_plugin_active() : bool
+    {
+        if ( ACF::is_installed() && ACF::is_active() )
+        {
+            return true;
+        }
+
+        $error_message = 'ACF plugin is not ';
+
+        if ( ! ACF::is_installed() )
+        {
+            $error_message .= 'installed! Please install it.';
+        }
+        else if ( ! ACF::is_active() )
+        {
+            $error_message .= 'active! Please activate it.';
+        }
+
+        $this->add_dashboard_error( $error_message );
+
+        return false;
     }
 
     /**
