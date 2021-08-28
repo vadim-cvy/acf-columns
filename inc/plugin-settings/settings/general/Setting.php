@@ -62,12 +62,7 @@ class Setting extends \Cvy_AC\helpers\inc\settings\Setting
     {
         $fields = [];
 
-        $post_types = get_post_types([
-            'public'  => true,
-            'show_ui' => true,
-        ], 'objects' );
-
-        foreach ( $post_types as $post_type )
+        foreach ( \Cvy_AC\helpers\inc\Post_Types::get_visible() as $post_type )
         {
             $fields[] = new Field__Max_Columns( 'post_type', $post_type );
         }
@@ -84,12 +79,7 @@ class Setting extends \Cvy_AC\helpers\inc\settings\Setting
     {
         $fields = [];
 
-        $taxonomies = get_taxonomies([
-            'public'  => true,
-            'show_ui' => true,
-        ], 'objects' );
-
-        foreach ( $taxonomies as $taxonomy )
+        foreach ( \Cvy_AC\helpers\inc\Taxonomies::get_visible() as $taxonomy )
         {
             $fields[] = new Field__Max_Columns( 'tax', $taxonomy );
         }
