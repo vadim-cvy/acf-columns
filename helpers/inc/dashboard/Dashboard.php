@@ -1,6 +1,6 @@
 <?php
 
-namespace Cvy_AC\helpers\inc;
+namespace Cvy_AC\helpers\inc\dashboard;
 
 /**
  * Representation of WP Dashboard.
