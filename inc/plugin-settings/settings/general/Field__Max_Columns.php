@@ -10,7 +10,7 @@ namespace Cvy_AC\inc\plugin_settings\settings\general;
  *
  * A wrapper for add_settings_field().
  */
-class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field
+class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field__Dynamic
 {
     /**
      * Post type / taxonomy instance or null if $this->target_object_type is 'users'.

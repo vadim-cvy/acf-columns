@@ -6,15 +6,19 @@ namespace Cvy_AC\helpers\inc\settings;
  * Setting field.
  *
  * A wrapper for add_settings_field().
+ *
+ * May have only 1 instance.
  */
-trait tField
+abstract class Field__Singleton
 {
+    use \Cvy_AC\helpers\inc\design_pattern\tSingleton;
+
     /**
      * Adds required WP hooks.
      *
      * Must be called on field construct.
      */
-    protected function on_construct()
+    protected function __construct()
     {
         \Cvy_AC\helpers\inc\WP_Hooks::add_action_ensure( 'admin_init', [ $this, '_register' ] );
     }

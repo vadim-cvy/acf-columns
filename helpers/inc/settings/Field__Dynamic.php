@@ -9,12 +9,10 @@ namespace Cvy_AC\helpers\inc\settings;
  *
  * May have multiple instances.
  */
-abstract class Field
+abstract class Field__Dynamic extends Field__Singleton
 {
-    use tField;
-
     public function __construct()
     {
-        $this->on_construct();
+        parent::__construct();
     }
 }
