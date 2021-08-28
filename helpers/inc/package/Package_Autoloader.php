@@ -52,7 +52,10 @@ class Package_Autoloader
     {
         $this->class_full_name = $class_full_name;
 
-        if ( $this->is_class_belong_to_package() )
+        if (
+            $this->is_class_belong_to_package() &&
+            file_exists( $this->get_class_file_path() )
+        )
         {
             require_once $this->get_class_file_path();
         }
