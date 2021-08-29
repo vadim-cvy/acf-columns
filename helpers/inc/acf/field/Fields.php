@@ -134,7 +134,8 @@ class Fields
     protected static function get_fields_posts_query( $args = [] ) : \WP_Query
     {
         $default_args = [
-            'post_type' => 'acf-field',
+            'post_type'      => 'acf-field',
+            'posts_per_page' => -1,
         ];
 
         $args = array_merge( $default_args, $args );
