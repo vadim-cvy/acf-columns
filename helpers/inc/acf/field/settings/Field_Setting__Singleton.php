@@ -66,7 +66,7 @@ abstract class Field_Setting__Singleton
     {
         if ( $this->is_available_for_field( $field_object ) )
         {
-            acf_render_field_setting( $field, $this->get_args() );
+            acf_render_field_setting( $field_object, $this->get_args() );
         }
     }
 }
