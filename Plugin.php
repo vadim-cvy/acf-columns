@@ -33,7 +33,7 @@ class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
      */
     public function on_run() : void
     {
-        \Cvy_AC\inc\plugin_settings\Plugin_Settings::get_instance();
+        \Cvy_AC\inc\plugin_settings\Plugin_Settings_Controller::get_instance();
     }
 
     /**

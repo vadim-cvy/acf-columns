@@ -5,7 +5,7 @@ namespace Cvy_AC\inc\plugin_settings;
 /**
  * Plugin settings controller.
  */
-class Plugin_Settings
+class Plugin_Settings_Controller
 {
     use \Cvy_AC\helpers\inc\design_pattern\tSingleton;
 
