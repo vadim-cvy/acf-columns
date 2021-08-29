@@ -119,7 +119,7 @@ abstract class Column
     /**
      * Returns information regarding current table (screen).
      *
-     * @return array<mixed> Current table (screen) data.
+     * @return array<string,mixed> Current table (screen) data.
      */
     protected function get_current_table_data() : array
     {
@@ -157,8 +157,8 @@ abstract class Column
      *
      * See $this->_print_column_cell().
      *
-     * @param   array<mixed> $table_data    Current table (screen) data.
-     * @return  iCell                       Column cell instance.
+     * @param   array<string,mixed> $table_data     Current table (screen) data.
+     * @return  iCell                               Column cell instance.
      */
     abstract protected function create_cell( array $table_data ) : iCell;
 
