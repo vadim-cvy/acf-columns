@@ -1,3 +1,7 @@
+<?php
+
+$prefix = \Cvy_AC\helpers\Helpers::get_instance()->get_prefix() . '_'; ?>
+
 <input
     <?php
     foreach ( $this->get_input_attrs() as $key => $value )
@@ -9,15 +13,7 @@
 <?php
 if ( $this->has_errors() )
 { ?>
-    <!-- Todo: move to .css file -->
-    <style>
-        .color_error
-        {
-            color: red;
-        }
-    </style>
-
-    <p class="color_error">
+    <p class="<?php echo $prefix; ?>color_error">
         <?php echo $this->get_error_hint(); ?>
     </p>
 <?php
