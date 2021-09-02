@@ -67,7 +67,10 @@ class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
      */
     protected function enqueue_assets() : void
     {
-
+        if ( is_admin() )
+        {
+            $this->enqueue_internal_css_asset( 'dashboard', 'dashboard.css' );
+        }
     }
 
     /**
