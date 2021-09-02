@@ -149,7 +149,6 @@ abstract class Field__Singleton
      */
     protected function validate( $value ) : void
     {
-        // Todo: this should be fixed for checkboxes and radiobuttons
         if ( $this->is_required() && empty( $value ) )
         {
             $this->error( 'empty' );
