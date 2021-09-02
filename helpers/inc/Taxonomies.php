@@ -2,6 +2,9 @@
 
 namespace Cvy_AC\helpers\inc;
 
+/**
+ * Implements common methods to make it easier to work with taxonomies.
+ */
 class Taxonomies
 {
     public static function get_visible() : array
