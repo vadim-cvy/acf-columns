@@ -11,74 +11,54 @@ use \Cvy_AC\helpers\inc\WP_Hooks;
  */
 abstract class Column
 {
-    protected function __construct()
+    /**
+     * Name of the screen the column belongs to.
+     *
+     * @var string  Screen name. Ex:
+     *              "my_custom_post_type" - My Custom Post Type posts table;
+     *              "my_custom_taxonomy" - My Custom Taxonomy terms table;
+     *              "users" - Users table.
+     */
+    protected $screen_name = '';
+
+    /**
+     * @param string $screen_name See documentation of $this->screen_name.
+     */
+    protected function __construct( string $screen_name )
     {
+        $this->screen_name = $screen_name;
+
         $this->register();
     }
 
     /**
-     * Registers the column in dashboard tables.
+     * Registers the column in the dashboard table.
      *
      * @return void
      */
     protected function register() : void
     {
-        $this->add_post_types_hooks();
+        $is_users_screen = $this->screen_name === 'users';
 
-        $this->add_taxonomies_hooks();
-
-        $this->add_users_hooks();
-    }
-
-    /**
-     * Registers the column for post types tables.
-     *
-     * @return void
-     */
-    protected function add_post_types_hooks() : void
-    {
-        foreach ( $this->get_post_types() as $post_type )
+        if ( $is_users_screen )
         {
-            $this->register_screen_hooks(  $post_type . '_posts' );
+            $add_column_hook_name = 'manage_' . $this->screen_name . '_columns';
         }
-    }
-
-    /**
-     * Registers the column for taxonomies tables.
-     *
-     * @return void
-     */
-    protected function add_taxonomies_hooks() : void
-    {
-        foreach ( $this->get_taxonomies() as $taxonomy )
+        else
         {
-            $this->register_screen_hooks( $taxonomy );
+            $add_column_hook_name = 'manage_edit-' . $this->screen_name . '_columns';
         }
-    }
 
-    /**
-     * Registers the column for users table.
-     *
-     * @return void
-     */
-    protected function add_users_hooks() : void
-    {
-        if ( $this->is_available_for_users_table() )
+        $is_post_type_screen = ! empty( get_post_type_object( $this->screen_name ) );
+
+        if ( $is_post_type_screen )
         {
-            $this->register_screen_hooks( 'users' );
+            $print_cell_hook_name = 'manage_' . $this->screen_name . '_posts_custom_column';
         }
-    }
-
-    /**
-     * A wrapper for 'manage_{screen_name}_columns' and 'manage_{screen_name}_custom_column'.
-     *
-     * @param string $screen_name   Screen name.
-     * @return void
-     */
-    protected function register_screen_hooks( string $screen_name ) : void
-    {
-        $add_column_hook_name = 'manage_' . $screen_name . '_columns';
-        $print_cell_hook_name = 'manage_' . $screen_name . '_custom_column';
+        else
+        {
+            $print_cell_hook_name = 'manage_' . $this->screen_name . '_custom_column';
+        }
 
         WP_Hooks::add_filter_ensure( $add_column_hook_name, [ $this, '_add_column' ] );
 
@@ -99,89 +79,87 @@ abstract class Column
     }
 
     /**
-     * A callback for 'manage_{screen_name}_custom_column'.
+     * Prints column cell.
      *
-     * @param   string $column_name    Name of the cell's column.
-     * @return  void
+     * @param string        $arg_1  Column name in case current table is post type table,
+     *                              empty string otherwise.
+     * @param string|int    $arg_2  Empty string in case current table is post type table,
+     *                              column name otherwise;
+     * @param integer       $arg_3  Empty string in case current table is post type table,
+     *                              Term id in case current table is taxonomy table,
+     *                              User id in case current table is users table.
+     * @return string               Cell content in case current table is users table,
+     *                              empty string otherwise.
      */
-    public function _print_column_cell( string $column_name ) : void
+    public function _print_column_cell( string $arg_1, $arg_2, int $arg_3 = 0 ) : string
     {
+        // WP has a strange sense of humor and it passes a blank string as a first argument
+        // while second argument is column name (for taxonomies). But post types recieve
+        // column name as a first argument...
+        $column_name =
+            ! empty( $arg_1 ) ?
+            $arg_1 :
+            $arg_2;
+
         if ( $column_name !== $this->get_name() )
         {
-            return;
+            return '';
         }
 
-        $cell = $this->create_cell( $this->get_current_table_data() );
+        $object_id =
+            ! empty( $arg_1 ) ?
+            $arg_2 :
+            $arg_3;
 
-        $cell->print();
+        ob_start();
+
+        $this->create_cell( $object_id )->print();
+
+        $content = ob_get_contents();
+
+        ob_end_clean();
+
+        // Users table don't want we to print the cell as we do for post and tax tables.
+        // Users table wants we to return a content as a string.
+        // Funny.
+        if ( get_current_screen()->base === 'users' )
+        {
+            return $content;
+        }
+        else
+        {
+            echo $content;
+        }
     }
 
     /**
-     * Returns information regarding current table (screen).
+     * Creates a table cell instance based on the passed object id.
      *
-     * @return array<string,mixed> Current table (screen) data.
+     * Use $this->get_current_table_type() to detect if current table is posts table,
+     * or taxonomies, or users.
+     *
+     * @param integer $object_id    Post id, or term id, or user id.
+     * @return iCell                Cell instance.
      */
-    protected function get_current_table_data() : array
+    abstract protected function create_cell( int $object_id ) : iCell;
+
+    protected function get_current_table_type() : string
     {
         $screen = get_current_screen();
 
-        $is_post_type_table = $screen->base === 'edit';
-
-        if ( $is_post_type_table )
+        if ( $screen->base === 'edit' )
         {
-            return [
-                'table_type' => 'posts',
-                'post_id'    => get_the_ID(),
-                'post_type'  => $screen->post_type,
-            ];
+            return 'posts';
         }
-        else if ( $is_taxonomy_table )
+        else if ( $screen->base === 'edit-tags' )
         {
-            return [
-                'table_type'  => 'taxonomies',
-                'taxonomy_id' => null,
-                'post_type'   => $screen->post_type,
-            ];
+            return 'tax';
         }
-        else if ( $is_users_table )
+        else if ( $screen->base === 'users' )
         {
-            return [
-                'table_type' => 'users',
-                'user_id'    => null,
-            ];
+            return 'users';
         }
     }
-
-    /**
-     * Creates a column cell instance.
-     *
-     * See $this->_print_column_cell().
-     *
-     * @param   array<string,mixed> $table_data     Current table (screen) data.
-     * @return  iCell                               Column cell instance.
-     */
-    abstract protected function create_cell( array $table_data ) : iCell;
-
-    /**
-     * Returns post types the column is available for.
-     *
-     * @return array<string> Post types names.
-     */
-    abstract protected function get_post_types() : array;
-
-    /**
-     * Returns taxonomies the column is available for.
-     *
-     * @return array<string> Taxonomies names.
-     */
-    abstract protected function get_taxonomies() : array;
-
-    /**
-     * Checks if the column is available for the users table.
-     *
-     * @return bool True if column is available for users table, false otherwise.
-     */
-    abstract protected function is_available_for_users_table() : bool;
 
     /**
      * Returns column name (slug).
