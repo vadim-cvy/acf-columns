@@ -20,7 +20,7 @@ class Dashboard
 
     protected function __construct()
     {
-        WP_Hooks::add_action_ensure( 'admin_notices', [ $this, '_print_notices' ] );
+        \Cvy_AC\helpers\inc\WP_Hooks::add_action_ensure( 'admin_notices', [ $this, '_print_notices' ] );
     }
 
     /**
