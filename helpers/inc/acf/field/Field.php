@@ -15,6 +15,16 @@ class Field
     protected $key = '';
 
     /**
+     * ACF context which should be used ACF get_field() function.
+     *
+     * @var string  Context. Ex:
+     *              "1" - Post with id 1;
+     *              "tax_name_3" - Term with id 3 (belongs to taxonomy "tax_name");
+     *              "user_5" - User with id 5.
+     */
+    protected $context = '';
+
+    /**
      * @param string $field_key Field key.
      */
     public function __construct( string $field_key )
@@ -84,6 +94,27 @@ class Field
     public function validate_exists()
     {
         $this->get_original();
+    }
+
+    /**
+     * Setter for $this->context.
+     *
+     * @param string $context See documentation of $this->context.
+     * @return void
+     */
+    public function set_context( string $context ) : void
+    {
+        $this->context = $context;
+    }
+
+    /**
+     * Getter for $this->context.
+     *
+     * @return string See documentation of $this->context.
+     */
+    public function get_context() : string
+    {
+        return $this->context;
     }
 
     /**
@@ -186,19 +217,20 @@ class Field
     /**
      * Wrapper for the get_field().
      *
-     * @param   string $context     "{post id}" or "{taxonomy}_{id}" or "{user}_{id}".
-     * @return  mixed               Field value.
+     * @param   bool   $format_value    Whether to apply formatting logic.
+     * @return  mixed                   Field value.
      */
-    public function get_value( string $context = '' )
+    public function get_value( bool $format_value = true )
     {
         if ( $this->is_subfield() )
         {
-            $parent_value = $this->get_parent()->get_value( $context );
+            // Todo: Does format value work here?
+            $parent_value = $this->get_parent()->get_value( $format_value );
 
             return $parent_value[ $this->get_name() ];
         }
 
-        return get_field( $this->get_key(), $context );
+        return get_field( $this->get_key(), $this->get_context(), $format_value );
     }
 
     /**
