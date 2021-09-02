@@ -37,6 +37,16 @@ abstract class Plugin_Package extends Package
     }
 
     /**
+     * Package version.
+     *
+     * @return string Package version.
+     */
+    public function get_version() : string
+    {
+        return $this->get_plugin_data()['Version'];
+    }
+
+    /**
      * Getter for plugin name.
      *
      * @return string Plugin name.
@@ -68,13 +78,18 @@ abstract class Plugin_Package extends Package
     abstract protected function get_root_file() : string;
 
     /**
-     * Getter for the plugin root directory path.
+     * Retrns CSS dir URL.
      *
-     * @return string Plugin root directory path.
+     * @return string
      */
-    public function get_root_dir() : string
+    protected function get_css_dir_url() : string
     {
-        return dirname( $this->get_root_file() ) . '/';
+        $css_dir_path = $this->get_css_dir();
+
+        $css_dir_path .=
+            'unexisting_file_which_prevents_PLUGIN_DIR_URL_func_to_remove_css_dir';
+
+        return plugin_dir_url( $css_dir_path );
     }
 
     /**
