@@ -60,7 +60,7 @@ abstract class Package
     }
 
     /**
-     * The method where assets should be included.
+     * Enqueues assets.
      *
      * I.e call wp_enqueue_script() and wp_enqueue_style() here.
      * It is preffered to use such methods as $this->enqueue_internal_css_asset(),
