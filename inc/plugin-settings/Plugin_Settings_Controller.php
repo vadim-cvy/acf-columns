@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\plugin_settings;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Plugin settings controller.
  */

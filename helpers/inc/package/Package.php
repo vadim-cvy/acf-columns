@@ -4,6 +4,8 @@ namespace Cvy_AC\helpers\inc\package;
 
 use \Cvy_AC\helpers\inc\WP_Hooks;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Boilerplate for the package entry points.
  *

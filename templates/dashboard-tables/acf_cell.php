@@ -3,6 +3,8 @@
  * Cell content template of the ACF field based dashboard table column.
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $prefix = \Cvy_AC\Plugin::get_instance()->get_prefix() . '_'; ?>
 
 <div

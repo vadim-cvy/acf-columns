@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\package;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * A boilerplate for plugins main files.
  *

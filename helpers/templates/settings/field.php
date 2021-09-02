@@ -1,5 +1,7 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $prefix = \Cvy_AC\helpers\Helpers::get_instance()->get_prefix() . '_'; ?>
 
 <input

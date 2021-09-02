@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\acf\group;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Incapsulates ACF groups common helpers.
  */

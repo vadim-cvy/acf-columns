@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Incapsulates wrappers for wp hooks related funcitons.
  */

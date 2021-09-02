@@ -4,6 +4,8 @@ namespace Cvy_AC\helpers\inc\acf;
 
 use \Cvy_AC\helpers\inc\Plugins;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Contains common ACF-based helpers.
  */

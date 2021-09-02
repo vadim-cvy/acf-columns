@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\acf;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * ACF field setting: "Show in Dashboard Tables?".
  */

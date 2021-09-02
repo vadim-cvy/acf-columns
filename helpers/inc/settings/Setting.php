@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\settings;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * A wrapper for register_setting().
  */

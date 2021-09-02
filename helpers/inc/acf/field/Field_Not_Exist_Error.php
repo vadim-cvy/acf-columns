@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\acf\field;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Error that should triggered when some operation requires ACF filed but one
  * does not exist.

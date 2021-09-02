@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\acf\field\settings;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Representation of the ACF field setting.
  *

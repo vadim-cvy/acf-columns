@@ -1,5 +1,7 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 foreach ( $this->notices as $notices_type => $notices )
 {
     foreach ( $notices as $notice_text )

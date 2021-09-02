@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\dashboard;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Representation of WP Dashboard.
  */

@@ -5,6 +5,8 @@
  * Is used for displaying values of URL fields.
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( empty( $target ) )
 {
     $target = '_blank';

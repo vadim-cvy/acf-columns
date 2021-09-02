@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\plugin_settings\settings\general;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Container for the plugin general settings.
  *

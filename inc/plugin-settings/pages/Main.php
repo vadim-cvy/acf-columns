@@ -6,6 +6,8 @@ use \Cvy_AC\Plugin;
 
 use \Cvy_AC\helpers\inc\settings\Section;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Plugin main settings page.
  */

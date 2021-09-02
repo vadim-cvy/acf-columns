@@ -12,6 +12,8 @@ namespace Cvy_AC;
 
 use \Cvy_AC\helpers\inc\acf\ACF;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Init plugin autoloader.
  */

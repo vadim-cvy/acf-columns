@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\dashboard_tables;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * ACF field based dashbooard table column.
  */

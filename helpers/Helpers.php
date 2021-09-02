@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Helpers package main file.
  */

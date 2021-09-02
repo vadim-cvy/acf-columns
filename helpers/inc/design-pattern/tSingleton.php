@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\design_pattern;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Software design pattern.
  */

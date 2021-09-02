@@ -1,3 +1,7 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <div class="wrap">
     <h1>
         <?php echo $this->get_page_title(); ?>

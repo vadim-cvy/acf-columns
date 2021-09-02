@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Incapsulates common helpers for plugins related functionality.
  */

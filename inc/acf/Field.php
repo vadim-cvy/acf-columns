@@ -4,6 +4,8 @@ namespace Cvy_AC\inc\acf;
 
 use \Cvy_AC\helpers\inc\acf\group\Groups;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Representation of ACF field.
  */

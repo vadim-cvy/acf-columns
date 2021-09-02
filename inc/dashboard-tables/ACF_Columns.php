@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\dashboard_tables;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Inits and handles common functionality for ACF fields based dashboard table columns.
  */

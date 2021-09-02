@@ -6,6 +6,8 @@
  * Is used for displaying values of User fields.
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $prefix = \Cvy_AC\Plugin::get_instance()->get_prefix() . '_';
 
 foreach ( $users_data as $user_data )

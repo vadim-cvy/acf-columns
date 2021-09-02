@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Implements common methods to make it easier to work with post types.
  */

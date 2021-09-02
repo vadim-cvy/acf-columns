@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\package;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Wrapper for the spl_autoload_register().
  */

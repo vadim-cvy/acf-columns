@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\helpers\inc\acf\field;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Incapsulates ACF fields common helpers.
  */

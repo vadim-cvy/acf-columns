@@ -4,6 +4,8 @@ namespace Cvy_AC\helpers\inc\dashboard\tables;
 
 use \Cvy_AC\helpers\inc\WP_Hooks;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Representation of the WP dashboard table column.
  *

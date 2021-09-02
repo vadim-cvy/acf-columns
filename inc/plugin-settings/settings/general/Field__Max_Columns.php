@@ -2,6 +2,8 @@
 
 namespace Cvy_AC\inc\plugin_settings\settings\general;
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Max Columns field.
  *
