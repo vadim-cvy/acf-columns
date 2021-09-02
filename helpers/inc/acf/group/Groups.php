@@ -8,6 +8,16 @@ namespace Cvy_AC\helpers\inc\acf\group;
 class Groups
 {
     /**
+     * Returns all registered groups.
+     *
+     * @return array<Group>
+     */
+    public static function get_all() : array
+    {
+        return static::get_by_filters([]);
+    }
+
+    /**
      * Returns group by specified group id.
      *
      * @param   integer $group_id   Group id.
@@ -28,6 +38,8 @@ class Groups
      */
     public static function get_by_post_type( string $post_type ) : array
     {
+        //Todo: add handlers for "post template", "post status", etc.
+
         return static::get_by_filters([
             'post_type' => $post_type,
         ]);
@@ -41,7 +53,6 @@ class Groups
      */
     public static function get_by_taxonomy( string $taxonomy ) : array
     {
-        // Todo: check if it works
         return static::get_by_filters([
             'taxonomy' => $taxonomy,
         ]);
