@@ -64,7 +64,7 @@ class Setting extends \Cvy_AC\helpers\inc\settings\Setting
 
         foreach ( \Cvy_AC\helpers\inc\Post_Types::get_visible() as $post_type )
         {
-            $fields[] = new Field__Max_Columns( 'post_type', $post_type );
+            $fields[] = new Field__Max_Columns( $post_type->name );
         }
 
         return $fields;
@@ -81,7 +81,7 @@ class Setting extends \Cvy_AC\helpers\inc\settings\Setting
 
         foreach ( \Cvy_AC\helpers\inc\Taxonomies::get_visible() as $taxonomy )
         {
-            $fields[] = new Field__Max_Columns( 'tax', $taxonomy );
+            $fields[] = new Field__Max_Columns( $taxonomy->name );
         }
 
         return $fields;

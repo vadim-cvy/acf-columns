@@ -13,29 +13,23 @@ namespace Cvy_AC\inc\plugin_settings\settings\general;
 class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field__Dynamic
 {
     /**
-     * Post type / taxonomy instance or null if $this->target_object_type is 'users'.
+     * Screen (table) name.
      *
-     * @var \WP_Post_Type|\WP_Taxonomy|null
-     */
-    protected $target_object = null;
-
-    /**
-     * Type of $this->target_object.
-     *
-     * Allowed values: 'post_type', 'tax', 'users'.
+     * Ex:
+     *  - "my_custom_post_type" - My Custom Post Type table;
+     *  - "my_custom_taxonomy" - My Custom Taxonomy table;
+     *  - "users" - Users table.
      *
      * @var string
      */
-    protected $target_object_type = '';
+    protected $screen_name = '';
 
     /**
-     * @param string $target_object_type                    See $this->target_object_type.
-     * @param \WP_Post_Type|\WP_Taxonomy|null $target_object  See $this->target_object
+     * @param string $screen_name See documentation of $this->screen.
      */
-    public function __construct( string $target_object_type, $target_object = null )
+    public function __construct( string $screen_name )
     {
-        $this->target_object_type = $target_object_type;
-        $this->target_object      = $target_object;
+        $this->screen_name = $screen_name;
 
         parent::__construct();
     }
@@ -47,7 +41,7 @@ class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field__Dynamic
      */
     public function get_id() : string
     {
-        return $this->get_target_object_slug() . '_max_columns';
+        return $this->screen_name . '_max_columns';
     }
 
     /**
@@ -57,25 +51,19 @@ class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field__Dynamic
      */
     protected function get_label() : string
     {
-        if ( $this->target_object_type === 'post_type' || $this->target_object_type === 'tax' )
+        if ( $this->screen_name === 'users' )
         {
-            $label = '"' . $this->target_object->label . '" ';
-
-            if ( $this->target_object_type === 'post_type' )
-            {
-                $label .= 'post type';
-            }
-            else if ( $this->target_object_type === 'tax' )
-            {
-                $label .= 'taxonomy';
-            }
-        }
-        else
-        {
-            $label = 'Users';
+            return 'Users';
         }
 
-        return $label;
+        $post_type = get_post_type_object( $this->screen_name );
+
+        if ( $post_type )
+        {
+            return $post_type->name;
+        }
+
+        return get_taxonomy( $this->screen_name )->name;
     }
 
     /**
@@ -140,23 +128,5 @@ class Field__Max_Columns extends \Cvy_AC\helpers\inc\settings\Field__Dynamic
         $attrs['min'] = 1;
 
         return $attrs;
-    }
-
-    /**
-     * Getter for $this->target_object slug.
-     *
-     * @return string   Target object slug or 'users' if $this->target_object_type
-     *                  is set to 'users'.
-     */
-    protected function get_target_object_slug() : string
-    {
-        $target_object_slug = $this->target_object_type;
-
-        if ( $this->target_object_type === 'post_type' || $this->target_object_type === 'tax' )
-        {
-            $target_object_slug .= '_' . $this->target_object->name;
-        }
-
-        return $target_object_slug;
     }
 }
