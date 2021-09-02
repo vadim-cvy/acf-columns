@@ -8,40 +8,50 @@ namespace Cvy_AC\helpers\inc;
 class WP_Hooks
 {
     /**
-     * Makes sure action hasn't fired before add_action() is called.
-     *
-     * Wrapper for add_action().
+     * A wrapper for add_action().
      *
      * @param string $action_name
-     * @param callable  $callback
+     * @param callable|array $callback
+     * @param integer $order
+     * @param integer $args
      * @return void
      */
-    public static function add_action_ensure( string $action_name, callable $callback ) : void
+    public static function add_action_ensure(
+        string $action_name,
+        $callback,
+        int $order = 10,
+        int $args = 99
+    ) : void
     {
         if ( did_action( $action_name ) )
         {
             throw new \Exception( 'Can\'t handle add_action()! Action "' . $action_name . '" has already fired.' );
         }
 
-        add_action( $action_name, $callback );
+        add_action( $action_name, $callback, $order, $args );
     }
 
     /**
-     * Makes sure filter hasn't fired before add_filter() is called.
+     * A wrapper for add_filter().
      *
-     * Wrapper for add_filter().
-     *
-     * @param string $filter_name
-     * @param callable  $callback
+     * @param string $action_name
+     * @param callable|array $callback
+     * @param integer $order
+     * @param integer $args
      * @return void
      */
-    public static function add_filter_ensure( string $filter_name, callable $callback ) : void
+    public static function add_filter_ensure(
+        string $filter_name,
+        $callback,
+        int $order = 10,
+        int $args = 99
+    ) : void
     {
         if ( did_action( $filter_name ) )
         {
             throw new \Exception( 'Can\'t handle add_filter()! Filter "' . $filter_name . '" has already fired.' );
         }
 
-        add_filter( $filter_name, $callback );
+        add_filter( $filter_name, $callback, $order, $args );
     }
 }
