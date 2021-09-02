@@ -19,25 +19,15 @@ require_once __DIR__ . '/helpers/inc/package/Package_Autoloader.php';
 new \Cvy_AC\helpers\inc\package\Package_Autoloader( __NAMESPACE__, __DIR__ );
 
 /**
+ * Init Helpers
+ */
+\Cvy_AC\helpers\Helpers::get_instance();
+
+/**
  * Entry point of the plugin.
  */
 class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
 {
-    /**
-     * Contains the main code of the plugin.
-     *
-     * This method is executed when plugin has already confirmed if it can run via
-     * $this->can_run().
-     *
-     * @return void
-     */
-    public function on_run() : void
-    {
-        \Cvy_AC\inc\plugin_settings\Plugin_Settings_Controller::get_instance();
-
-        \Cvy_AC\inc\acf\ACF_Controller::get_instance();
-    }
-
     /**
      * Checks if the plugin is allowed to run.
      *
@@ -54,6 +44,30 @@ class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
         }
 
         return true;
+    }
+
+    /**
+     * Inits includes (imports files with the main custom code).
+     *
+     * @return void
+     */
+    protected function init_includes() : void
+    {
+        \Cvy_AC\inc\plugin_settings\Plugin_Settings_Controller::get_instance();
+
+        \Cvy_AC\inc\acf\ACF_Controller::get_instance();
+
+        \Cvy_AC\inc\dashboard_tables\Tables_Controller::get_instance();
+    }
+
+    /**
+     * Enqueues assets.
+     *
+     * @return void
+     */
+    protected function enqueue_assets() : void
+    {
+
     }
 
     /**
@@ -105,4 +119,4 @@ class Plugin extends \Cvy_AC\helpers\inc\package\Plugin_Package
     }
 }
 
-Plugin::get_instance()->run();
+Plugin::get_instance();
