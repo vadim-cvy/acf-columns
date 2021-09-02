@@ -35,7 +35,19 @@ abstract class Setting
      */
     public function get_value()
     {
-        return get_option( $this->get_name() );
+        $output_value = [];
+
+        $db_value = get_option( $this->get_name(), [] );
+
+        foreach ( $this->get_default_value() as $field_name => $default_value )
+        {
+            $output_value[ $field_name ] =
+                ! empty( $db_value[ $field_name ] ) ?
+                $db_value[ $field_name ] :
+                $default_value;
+        }
+
+        return $output_value;
     }
 
     /**
