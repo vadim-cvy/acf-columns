@@ -226,7 +226,6 @@ class Field
     {
         if ( $this->is_subfield() )
         {
-            // Todo: Does format value work here?
             $parent_value = $this->get_parent()->get_value( $format_value );
 
             /**
