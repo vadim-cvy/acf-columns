@@ -38,25 +38,26 @@ abstract class Field_Setting__Singleton
     abstract protected function get_args() : array;
 
     /**
-     * Checks if setting is available for specific field.
-     *
-     * This method is called for ALL fields one by one so you may consider if specific
-     * field can / cannot have current setting based on the passed field object.
-     *
-     * @param   array $field_object ACF Field object (array).
-     * @return  boolean             True if setting is available for passed field, false otherwise.
-     */
-    abstract protected function is_available_for_field( array $field_object ) : bool;
-
-    /**
      * Registers the setting.
      *
      * @return void
      */
     protected function register() : void
     {
-        \Cvy_AC\helpers\inc\WP_Hooks::add_filter_ensure( 'acf/render_field_settings', [ $this, '_print' ] );
+        foreach ( $this->get_supported_field_types() as $field_type )
+        {
+            $action_name = 'acf/render_field_settings/type=' . $field_type;
+
+            \Cvy_AC\helpers\inc\WP_Hooks::add_action_ensure( $action_name, [ $this, '_print' ], 1 );
+        }
     }
+
+    /**
+     * Returns field types which should have this setting.
+     *
+     * @return array<string> Field types.
+     */
+    abstract protected function get_supported_field_types() : array;
 
     /**
      * Prints the setting.
@@ -66,9 +67,6 @@ abstract class Field_Setting__Singleton
      */
     public function _print( array $field_object ) : void
     {
-        if ( $this->is_available_for_field( $field_object ) )
-        {
-            acf_render_field_setting( $field_object, $this->get_args() );
-        }
+        acf_render_field_setting( $field_object, $this->get_args() );
     }
 }

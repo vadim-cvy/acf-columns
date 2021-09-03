@@ -20,6 +20,7 @@ class Field_Setting__Show_Dashboard_Column extends \Cvy_AC\helpers\inc\acf\field
     {
         return [
             'label'			=> 'Show in Dashboard Tables?',
+            // Todo: set description
             'instructions'	=> 'Some description goes here',
             'name'			=> \Cvy_AC\Plugin::get_instance()->get_prefix() . '_show_dashboard_column',
             'type'			=> 'true_false',
@@ -28,21 +29,7 @@ class Field_Setting__Show_Dashboard_Column extends \Cvy_AC\helpers\inc\acf\field
     }
 
     /**
-     * Checks if setting is available for specific field.
-     *
-     * This method is called for ALL fields one by one so you may consider if specific
-     * field can / cannot have current setting based on the passed field object.
-     *
-     * @param   array $field_object ACF Field object (array).
-     * @return  boolean             True if setting is available for passed field, false otherwise.
-     */
-    protected function is_available_for_field( array $field ) : bool
-    {
-        return in_array( $field['type'], $this->get_supported_field_types() );
-    }
-
-    /**
-     * Returns field types which may have "Show in Dashboard Tables?" setting.
+     * Returns field types which should have this setting.
      *
      * @return array<string> Field types.
      */
