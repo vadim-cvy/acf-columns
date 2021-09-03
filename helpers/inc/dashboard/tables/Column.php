@@ -96,16 +96,16 @@ abstract class Column
     public function _print_column_cell( string $arg_1, $arg_2, int $arg_3 = 0 ) : string
     {
         // WP has a strange sense of humor and it passes a blank string as a first argument
-        // while second argument is column name (for taxonomies). But post types recieve
-        // column name as a first argument...
+        // while second argument is column name (for taxonomies and users). But post types
+        // recieve column name as a first argument...
         $column_name =
-            ! empty( $arg_1 ) ?
+            $this->get_current_table_type() === 'posts' ?
             $arg_1 :
             $arg_2;
 
         if ( $column_name !== $this->get_name() )
         {
-            return '';
+            return $this->get_current_table_type() === 'users' ? $arg_1 : '';
         }
 
         $object_id =
@@ -124,7 +124,7 @@ abstract class Column
         // Users table don't want we to print the cell as we do for post and tax tables.
         // Users table wants we to return a content as a string.
         // Funny.
-        if ( get_current_screen()->base !== 'users' )
+        if ( $this->get_current_table_type() !== 'users' )
         {
             echo $content;
         }
