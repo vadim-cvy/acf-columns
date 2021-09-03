@@ -229,7 +229,14 @@ class Field
             // Todo: Does format value work here?
             $parent_value = $this->get_parent()->get_value( $format_value );
 
-            return $parent_value[ $this->get_name() ];
+            /**
+             * Sometimes the parent output depends on the $format_value.
+             * If $format_value = false than parent value will probably contain
+             * field keys instead of field names.
+             */
+            return isset( $parent_value[ $this->get_name() ] ) ?
+                $parent_value[ $this->get_name() ] :
+                $parent_value[ $this->get_key() ];
         }
 
         return get_field( $this->get_key(), $this->get_context(), $format_value );
