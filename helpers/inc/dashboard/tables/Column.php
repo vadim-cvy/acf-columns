@@ -124,14 +124,12 @@ abstract class Column
         // Users table don't want we to print the cell as we do for post and tax tables.
         // Users table wants we to return a content as a string.
         // Funny.
-        if ( get_current_screen()->base === 'users' )
-        {
-            return $content;
-        }
-        else
+        if ( get_current_screen()->base !== 'users' )
         {
             echo $content;
         }
+
+        return $content;
     }
 
     /**
