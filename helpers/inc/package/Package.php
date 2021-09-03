@@ -93,7 +93,7 @@ abstract class Package
     {
         $this->validate_file_exists( $this->get_css_dir() . $relative_src );
 
-        $src     = $this->get_css_dir() . $relative_src;
+        $src     = $this->get_css_dir_url() . $relative_src;
         $version = $this->get_version();
 
         $this->enqueue_css_asset( $handle, $src, $dependencies, $version, $media );
